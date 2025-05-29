@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@playwright/test": "1.52.0",
+    "dotenv": "16.5.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.3"
+  },
+  "devDependencies": {
+    "checkly": "5.3.1",
+    "dotenv-cli": "6.0.0"
+  },
+  "scripts": {
+    "test": "dotenv -- bunx playwright test",
+    "test:ui": "dotenv -- bunx playwright test --ui",
+    "test:single": "dotenv -- bunx playwright test __checks__/basic.spec.ts",
+    "test:headed": "dotenv -- bunx playwright test --headed",
+    "test:report": "dotenv -- bunx playwright show-report",
+    "checkly": "dotenv -- bunx checkly test",
+    "checkly:list": "dotenv -- bunx checkly test --list",
+    "checkly:deploy": "dotenv -- bunx checkly deploy --force",
+    "checkly:login": "bunx checkly login",
+    "checkly:whoami": "bunx checkly whoami"
+  }
+}
