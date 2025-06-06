@@ -45,9 +45,8 @@ export async function assertProcessBuilderOutput({
   const llmResponse = await request.newContext().then(ctx =>
     ctx.post(llmCheckUrl, {
       data: {
-        instructions: semanticExpectation,
-        prompt: prompt,
-        llm_response: outputStages.join('\n'),
+        expected: semanticExpectation,
+        actual: outputStages.join('\n'),
       },
       headers: { 'Content-Type': 'application/json' },
     })
@@ -55,12 +54,11 @@ export async function assertProcessBuilderOutput({
 
   expect(llmResponse.status()).toBe(200);
 
+  expect(llmResponse.status()).toBe(200);
   const llmJson = await llmResponse.json();
-  console.log(`[LLM Cloud Judgment]`, llmJson);
-  expect(llmJson.result).toBe(true);
-  if (llmJson.score) {
-    expect(llmJson.score).toBeGreaterThanOrEqual(llmMinScore);
-  }
+  console.log('[LLM Score Response]', llmJson);
+  expect(typeof llmJson.score).toBe('number');
+  expect(llmJson.score).toBeGreaterThanOrEqual(llmMinScore);
 
   if (semanticExpectation) {
     const combinedOutput = outputStages.join(' ');
