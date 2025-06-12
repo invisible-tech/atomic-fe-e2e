@@ -1,8 +1,22 @@
-import { BrowserCheck, Frequency } from 'checkly/constructs'
+import { BrowserCheck, Frequency, RetryStrategyBuilder } from 'checkly/constructs'
 
 new BrowserCheck('basic-llm-check', {
-  name: 'Basic LLM + Homepage Check',
+  name: '[Atomic] Basic LLM + Homepage Check',
+  activated: true,
+  muted: false,
+  shouldFail: false,
+  runParallel: true,
+  locations: [],
+  tags: ['atomic'],
+  sslCheckDomain: '',
   frequency: Frequency.EVERY_30M,
   code: { entrypoint: './basic-llm-check.spec.ts' },
+  environmentVariables: [],
   locations: ['us-east-1'],
+  retryStrategy: RetryStrategyBuilder.linearStrategy({
+      baseBackoffSeconds: 60,
+      maxRetries: 2,
+      maxDurationSeconds: 600,
+      sameRegion: true,
+  }),
 })
