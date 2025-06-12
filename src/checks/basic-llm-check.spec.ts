@@ -1,33 +1,82 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from '@playwright/test';
 
-test('Homepage and LLM validation', async ({ page, request }) => {
-  const baseUrl = 'https://atomic.invsta.systems'
-  const llmCheckUrl = 'https://script.google.com/macros/s/AKfycbyU1ev45sxhYSgNxdxSrkZvt3Su1bvbxL55xoXtZQ5OhZxsecBL56ELuNPeDaCgNyx07g/exec'
+test('LLM validation with expected/actual comparison', async ({ request }) => {
+  const llmCheckUrl = 'https://script.google.com/macros/s/AKfycbyU1ev45sxhYSgNxdxSrkZvt3Su1bvbxL55xoXtZQ5OhZxsecBL56ELuNPeDaCgNyx07g/exec';
 
-  const response = await page.goto(baseUrl)
-  expect(response).not.toBeNull()
-  if (response) {
-    expect(response.status()).toBeLessThanOrEqual(200)
-  }
+  const expected = {
+    reasoning: "To ensure safe machine shutdown, it's essential to follow a sequence that guarantees zero energy state...",
+    workflow: {
+      stages: [
+        {
+          id: "stage-1",
+          icon: "power",
+          name: "Shutdown Preparation",
+          description: "Prepare machine for shutdown by notifying personnel and checking conditions.",
+        },
+      ],
+      steps: [
+        {
+          id: "step-1",
+          step_template: {
+            id: "shutdown-101",
+            icon: "bell-off",
+            name: "Notify personnel",
+            description: "Notify all personnel in the vicinity.",
+            type: "communication",
+          },
+          name: "Notify Team",
+          stage_id: "stage-1",
+        },
+      ],
+      edges: [],
+    },
+    assistant_response: "I've created a structured shutdown workflow...",
+  };
+
+  const actual = {
+    reasoning: "This workflow is designed to onboard a new employee efficiently by assigning tasks and collecting documentation.",
+    workflow: {
+      stages: [
+        {
+          id: "onboarding-1",
+          icon: "user-plus",
+          name: "Document Collection",
+          description: "Collect necessary employment documents.",
+        },
+      ],
+      steps: [
+        {
+          id: "step-onboard-1",
+          step_template: {
+            id: "onboard-template-1",
+            icon: "file-text",
+            name: "Collect ID",
+            description: "Request employee ID and tax forms.",
+            type: "document",
+          },
+          name: "Collect Documents",
+          stage_id: "onboarding-1",
+        },
+      ],
+      edges: [],
+    },
+    assistant_response: "Here's the onboarding workflow. Let me know if you want to assign tasks to HR.",
+  };
 
   const payload = {
-    instructions: "Check if the shutdown process includes safe power-off, lockout, and warning signs.",
-    prompt: "Describe how to safely shut down the machine.",
-    llm_response: (
-      "1. Press the emergency stop button to halt machine operations.\n"
-      + "2. Turn off and disconnect the main power supply.\n"
-      + "3. Apply a lockout/tagout device to the main breaker.\n"
-      + "4. Place warning signage indicating maintenance in progress."
-    )
-  }
+    expected: JSON.stringify(expected, null, 2),
+    actual: JSON.stringify(actual, null, 2),
+  };
 
   const llmResponse = await request.post(llmCheckUrl, {
     data: payload,
-    headers: { 'Content-Type': 'application/json' }
-  })
+    headers: { 'Content-Type': 'application/json' },
+  });
 
-  expect(llmResponse.status()).toBe(200)
+  expect(llmResponse.status()).toBe(200);
 
-  const llmJson = await llmResponse.json()
-  expect(llmJson.result).toBe(true)
-})
+  const llmJson = await llmResponse.json();
+  console.log("LLM Check Result:", llmJson);
+
+  expect(llmJson.score).toBe(2);
+});
