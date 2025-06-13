@@ -1,7 +1,7 @@
 import { BrowserCheck, Frequency, RetryStrategyBuilder } from 'checkly/constructs'
 
-new BrowserCheck('basic-auth-check', {
-  name: '[Atomic] Basic Google Authentication Check',
+new BrowserCheck('basic-auth-fail-check', {
+  name: '[Atomic] Basic Google Authentication Failure Check',
   activated: true,
   muted: false,
   shouldFail: false,
@@ -10,7 +10,7 @@ new BrowserCheck('basic-auth-check', {
   tags: ['atomic'],
   sslCheckDomain: '',
   frequency: Frequency.EVERY_30M,
-  code: { entrypoint: './basic-auth.spec.ts' },
+  code: { entrypoint: './basic-auth-fail.spec.ts' },
   environmentVariables: [],
   retryStrategy: RetryStrategyBuilder.linearStrategy({
 	  baseBackoffSeconds: 60,
