@@ -9,7 +9,7 @@ new BrowserCheck('basic-llm-check', {
   locations: [],
   tags: ['atomic'],
   sslCheckDomain: '',
-  frequency: Frequency.EVERY_30M,
+  frequency: Frequency.EVERY_24H,
   code: { entrypoint: './basic-llm-check.spec.ts' },
   environmentVariables: [],
   locations: ['us-east-1'],
