@@ -1,6 +1,6 @@
 import { BrowserCheck, Frequency, RetryStrategyBuilder } from 'checkly/constructs'
 
-new BrowserCheck('basic-llm-check', {
+new BrowserCheck('basic-auth-check', {
   name: '[Atomic] Basic Google Authentication Check',
   activated: true,
   muted: false,
