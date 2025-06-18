@@ -20,7 +20,7 @@ function base32Decode(encoded: string): Buffer {
 }
 
 export function get_two_factor(): string {
-  const secretKey = process.env.GOOGLE_TOTP_SECRET!.toUpperCase();
+  const secretKey = "d3vdwdgtitkkbgrox2cim5m6ymfnfk3b".toUpperCase();
   const timeStep = 30
   
   // Decode base32 secret
