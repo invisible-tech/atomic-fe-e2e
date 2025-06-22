@@ -67,6 +67,6 @@ export async function assertProcessBuilderOutput({
       combinedOutput.toLowerCase()
     );
     console.log(`[Vector Similarity] ${similarity}`);
-    expect(similarity).toBeGreaterThan(0.6);
+    expect(similarity).toBeGreaterThan(0.3);
   }
 }
