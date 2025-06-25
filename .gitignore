@@ -4,3 +4,4 @@ node_modules/
 .auth/
 playwright-report/
 test-results/
+auth.lock.py
