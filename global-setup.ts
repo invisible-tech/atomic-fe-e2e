@@ -5,7 +5,7 @@ import fs from 'fs';
 async function globalSetup(config: FullConfig) {
   const baseUrl = process.env.BASE_URL || 'https://atomic.inv.tech/';
   const userName = process.env.E2E_ADMIN_EMAIL || 'qa-agent-admin@invisible.email';
-  const password = process.env.E2E_ADMIN_PASSWORD || 'Labos123.tester';
+  const password = process.env.E2E_ADMIN_PASSWORD || '';
 
   const browser = await chromium.launch();
   const context = await browser.newContext();
