@@ -41,7 +41,6 @@ test('TC0001 - Create workflow via natural language prompt', async ({ page }) =>
       minStages: 3,
       requiredStages: ['Intake', 'Normalize & Extract', 'Validate & Lookup', 'Analyze & Enrich'],
       semanticExpectation: 'A workflow for insurance claim processing including intake, data normalization, validation, and analysis',
-      llmCheckUrl: 'https://script.google.com/macros/s/AKfycbyU1ev45sxhYSgNxdxSrkZvt3Su1bvbxL55xoXtZQ5OhZxsecBL56ELuNPeDaCgNyx07g/exec',
       llmMinScore: 4
     }
   });
