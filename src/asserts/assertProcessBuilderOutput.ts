@@ -1,5 +1,5 @@
 import { expect, request } from '@playwright/test';
-import { compareTwoStrings } from '../scripts/compareTwoStrings';
+import { compareTwoStrings } from '../utils/compareTwoStrings';
 
 export interface ProcessBuilderOutput {
   prompt: string;
@@ -54,7 +54,6 @@ export async function assertProcessBuilderOutput({
 
   expect(llmResponse.status()).toBe(200);
 
-  expect(llmResponse.status()).toBe(200);
   const llmJson = await llmResponse.json();
   console.log('[LLM Score Response]', llmJson);
   expect(typeof llmJson.score).toBe('number');
