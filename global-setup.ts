@@ -7,7 +7,7 @@ async function globalSetup(config: FullConfig) {
   const userName = process.env.E2E_ADMIN_EMAIL || 'qa-agent-admin@invisible.email';
   const password = process.env.E2E_ADMIN_PASSWORD || '';
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({headless:false});
   const context = await browser.newContext();
   const page = await context.newPage();
 
