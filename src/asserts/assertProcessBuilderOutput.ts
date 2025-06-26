@@ -1,5 +1,5 @@
 import { expect, request } from '@playwright/test';
-import stringSimilarity from 'string-similarity';
+import { compareTwoStrings } from '../scripts/compareTwoStrings';
 
 export interface ProcessBuilderOutput {
   prompt: string;
@@ -62,7 +62,7 @@ export async function assertProcessBuilderOutput({
 
   if (semanticExpectation) {
     const combinedOutput = outputStages.join(' ');
-    const similarity = stringSimilarity.compareTwoStrings(
+    const similarity = compareTwoStrings(
       semanticExpectation.toLowerCase(),
       combinedOutput.toLowerCase()
     );
