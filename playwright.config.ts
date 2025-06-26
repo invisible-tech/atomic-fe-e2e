@@ -9,5 +9,5 @@ export default defineConfig({
     actionTimeout: 60 * 1000,
     headless: true, 
   },
-  globalSetup: './global-setup.ts',
+  globalSetup: require.resolve('./global-setup.ts'),
 });
