@@ -1,5 +1,6 @@
 import { expect, request } from '@playwright/test';
 import { compareTwoStrings } from '../utils/compareTwoStrings';
+import { llmCompare } from '../utils/llmCompare';
 
 export interface ProcessBuilderOutput {
   prompt: string;
@@ -10,7 +11,6 @@ export interface ProcessBuilderOutput {
     requiredStages?: string[];
     requiredConnections?: [string, string][];
     semanticExpectation?: string;
-    llmCheckUrl: string;
     llmMinScore?: number;
   };
 }
@@ -26,7 +26,6 @@ export async function assertProcessBuilderOutput({
     requiredStages = [],
     requiredConnections = [],
     semanticExpectation = '',
-    llmCheckUrl,
     llmMinScore = 4,
   } = expected;
 
@@ -42,22 +41,8 @@ export async function assertProcessBuilderOutput({
     expect(exists).toBe(true);
   }
 
-  const llmResponse = await request.newContext().then(ctx =>
-    ctx.post(llmCheckUrl, {
-      data: {
-        expected: semanticExpectation,
-        actual: outputStages.join('\n'),
-      },
-      headers: { 'Content-Type': 'application/json' },
-    })
-  );
-
-  expect(llmResponse.status()).toBe(200);
-
-  const llmJson = await llmResponse.json();
-  console.log('[LLM Score Response]', llmJson);
-  expect(typeof llmJson.score).toBe('number');
-  expect(llmJson.score).toBeGreaterThanOrEqual(llmMinScore);
+  const llmScore = await llmCompare(semanticExpectation, outputStages.join('\n'));
+  expect(llmScore).toBeGreaterThanOrEqual(llmMinScore);
 
   if (semanticExpectation) {
     const combinedOutput = outputStages.join(' ');
