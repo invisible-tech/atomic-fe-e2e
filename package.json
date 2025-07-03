@@ -1,20 +1,24 @@
 {
+  "type": "module",
   "dependencies": {
     "@playwright/test": "1.52.0",
     "dotenv": "16.5.0",
     "string-similarity": "^4.0.4",
-    "ts-node": "10.9.2",
-    "typescript": "5.8.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@types/string-similarity": "^4.0.2",
+    "@vitest/ui": "^3.2.4",
     "checkly": "5.3.1",
-    "dotenv-cli": "6.0.0"
+    "dotenv-cli": "6.0.0",
+    "expect": "29.7.0",
+    "vitest": "^3.2.4"
   },
   "scripts": {
     "test": "dotenv -- bunx playwright test",
     "test:ui": "dotenv -- bunx playwright test --ui",
-    "test:single": "dotenv -- bunx playwright test tests/workflow/TC0001-natural-language.spec.ts",
+    "test:single": "dotenv -- bunx playwright test __checks__/basic.spec.ts",
     "test:headed": "dotenv -- bunx playwright test --headed",
     "test:report": "dotenv -- bunx playwright show-report",
     "checkly": "dotenv -- bunx checkly test",

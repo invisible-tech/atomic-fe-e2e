@@ -1,13 +1,14 @@
-import { test, expect } from '@playwright/test';
+// compareTwoStrings.test.ts
+import { describe, it, expect } from 'vitest';
 import { compareTwoStrings } from '../compareTwoStrings';
 
-test.describe('compareTwoStrings – important real-world cases', () => {
-  test('identical very long strings return 1', () => {
+describe('compareTwoStrings – important real-world cases', () => {
+  it('identical very long strings return 1', () => {
     const str = 'a'.repeat(100_000);
     expect(compareTwoStrings(str, str)).toBe(1);
   });
 
-  test('same very long string compared 3 times gives consistent result', () => {
+  it('same very long string compared 3 times gives consistent result', () => {
     const str1 = 'a'.repeat(10_000);
     const str2 = 'a'.repeat(10_000);
     const first = compareTwoStrings(str1, str2);
@@ -18,7 +19,7 @@ test.describe('compareTwoStrings – important real-world cases', () => {
     expect(third).toBe(1);
   });
 
-  test('long string vs slightly modified version', () => {
+  it('long string vs slightly modified version', () => {
     const base = 'a'.repeat(9999) + 'b';
     const modified = 'a'.repeat(9998) + 'bb';
     const score = compareTwoStrings(base, modified);
@@ -26,13 +27,13 @@ test.describe('compareTwoStrings – important real-world cases', () => {
     expect(score).toBeLessThan(1);
   });
 
-  test('very long string vs totally different long string', () => {
+  it('very long string vs totally different long string', () => {
     const a = 'a'.repeat(10000);
     const b = 'z'.repeat(10000);
     expect(compareTwoStrings(a, b)).toBe(0);
   });
 
-  test('multiline string vs same multiline with small change', () => {
+  it('multiline string vs same multiline with small change', () => {
     const a = `function sayHello() {
   console.log("Hello");
 }
@@ -52,7 +53,7 @@ function sayGoodbye() {
     expect(score).toBeLessThan(1);
   });
 
-  test('two very similar sentences with multiple differences', () => {
+  it('two very similar sentences with multiple differences', () => {
     const a = 'The quick brown fox jumps over the lazy dog.';
     const b = 'A quick brown fox jumped over a lazy dog!';
     const score = compareTwoStrings(a, b);
@@ -60,20 +61,20 @@ function sayGoodbye() {
     expect(score).toBeLessThan(1);
   });
 
-  test('string vs partial substring', () => {
+  it('string vs partial substring', () => {
     expect(compareTwoStrings('encyclopedia', 'clopedia')).toBeGreaterThan(0.5);
     expect(compareTwoStrings('encyclopedia', 'ency')).toBeGreaterThan(0.3);
   });
 
-  test('capitalization differences are ignored', () => {
+  it('capitalization differences are ignored', () => {
     expect(compareTwoStrings('HELLO WORLD', 'hello world')).toBe(1);
   });
 
-  test('returns 0 for no shared content', () => {
+  it('returns 0 for no shared content', () => {
     expect(compareTwoStrings('abcdefg', '1234567')).toBe(0);
   });
 
-  test('high similarity with shared prefixes and suffixes', () => {
+  it('high similarity with shared prefixes and suffixes', () => {
     const a = 'function compareStringsByNgramSimilarity() { return 1; }';
     const b = 'function compareStringsByNgramSimularity() { return 1; }';
     const score = compareTwoStrings(a, b);
