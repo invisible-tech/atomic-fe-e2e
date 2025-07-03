@@ -41,10 +41,10 @@ export async function assertProcessBuilderOutput({
     expect(exists).toBe(true);
   }
 
-  const llmScore = await llmCompare(semanticExpectation, outputStages.join('\n'));
-  expect(llmScore).toBeGreaterThanOrEqual(llmMinScore);
-
   if (semanticExpectation) {
+    const llmScore = await llmCompare(semanticExpectation, outputStages.join('\n'));
+    expect(llmScore).toBeGreaterThanOrEqual(llmMinScore);
+    
     const combinedOutput = outputStages.join(' ');
     const similarity = compareTwoStrings(
       semanticExpectation.toLowerCase(),

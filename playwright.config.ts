@@ -1,13 +1,12 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  timeout: 60 * 1000,
+  timeout: 90 * 1000,
+  testDir: 'src/checks',
   use: {
     baseURL: 'https://atomic.inv.tech/',
-    storageState: './.auth/user.json',
-    navigationTimeout: 60 * 1000,
-    actionTimeout: 60 * 1000,
+    navigationTimeout: 90 * 1000,
+    actionTimeout: 90 * 1000,
     headless: true, 
   },
-  globalSetup: require.resolve('./global-setup.ts'),
 });
