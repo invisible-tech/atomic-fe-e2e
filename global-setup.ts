@@ -25,7 +25,7 @@ async function globalSetup(config: FullConfig) {
   
   await page.goto(baseUrl + 'dashboard', { waitUntil: 'networkidle' });
   
-  await page.waitForSelector('h1:has-text("Processes")', { timeout: 30000 });
+  await page.getByRole('heading', { name: 'Processes' }).waitFor({ timeout: 30000 });
   
   await context.storageState({ path: './.auth/user.json' });
   console.log('✅ Authenticated context saved.');
