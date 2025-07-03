@@ -27,7 +27,7 @@ export default defineConfig({
 
     browserChecks: {
       frequency: Frequency.EVERY_30M, // UI checks every 30m
-      testMatch: '**/tests/**/*.spec.ts'  // UI checks path
+      testMatch: '**/src/checks/**/*.spec.ts'  // UI checks path
     }
   },
 
