@@ -7,11 +7,9 @@ on:
       - refactor
   workflow_dispatch:
 
-
 env:
   CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
   CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
-
 
 jobs:
   deploy-checks:
@@ -35,8 +33,11 @@ jobs:
       - name: Install Playwright Browsers
         run: bunx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: bunx checkly test
+      - name: Run global setup to generate authenticated session
+        run: bunx playwright test --global-setup=global-setup.ts --project=setup-only
+
+      - name: Run Playwright tests using storageState
+        run: bunx playwright test
 
       - name: Verify Checkly credentials
         run: |
@@ -45,5 +46,5 @@ jobs:
             exit 1
           fi
 
-      - name: Deploy updated checks to Checkly
+      - name: Deploy updated checks to Checkly (if any)
         run: bunx checkly deploy --force
