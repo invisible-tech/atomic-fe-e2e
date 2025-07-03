@@ -1,6 +1,6 @@
 import { expect, request } from '@playwright/test';
-import { compareTwoStrings } from '../scripts/compareTwoStrings';
-import { llmCompare } from '../scripts/llmCompare';
+import { compareTwoStrings } from '../utils/compareTwoStrings';
+import { llmCompare } from '../utils/llmCompare';
 
 export interface ProcessBuilderOutput {
   prompt: string;
@@ -41,7 +41,7 @@ export async function assertProcessBuilderOutput({
     expect(exists).toBe(true);
   }
 
-  const llmScore = llmCompare(semanticExpectation, outputStages.join('\n'));
+  const llmScore = await llmCompare(semanticExpectation, outputStages.join('\n'));
   expect(llmScore).toBeGreaterThanOrEqual(llmMinScore);
 
   if (semanticExpectation) {

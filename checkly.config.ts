@@ -23,7 +23,7 @@ export default defineConfig({
     runtimeId: CHECKLY_RUNTIME,
     frequency: Frequency.EVERY_10M, // API checks every 10m
     locations: ['us-east-1', 'us-west-1'],
-    checkMatch: '**/src/checks/**/*.check.ts', // API checks path
+    checkMatch: '**/tests/**/*.check.ts', // API checks path
 
     browserChecks: {
       frequency: Frequency.EVERY_30M, // UI checks every 30m
