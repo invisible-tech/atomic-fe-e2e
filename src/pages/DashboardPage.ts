@@ -1,4 +1,4 @@
-import { BasePage } from './basePage';
+import { BasePage } from './BasePage';
 import { Page } from '@playwright/test';
 import { dashboardLocators } from '../locators/dashboardLocators';
 
@@ -8,15 +8,15 @@ export class DashboardPage extends BasePage {
   }
 
   async open() {
-	await this.navigate('/dashboard');
-	await this.waitFor('h1:has-text("Processes")');
+    await this.navigate('/dashboard');
+    await this.waitFor(this.page.getByRole('heading', { name: 'Processes' }));
   }
 
   async clickStartNew() {
-	await this.click(dashboardLocators.startNewButton);
+	  await this.click(dashboardLocators.startNewButton);
   }
 
   async clickStartBuilding() {
-	await this.click(dashboardLocators.startBuildingButton);
+	  await this.click(dashboardLocators.startBuildingButton);
   }
 }

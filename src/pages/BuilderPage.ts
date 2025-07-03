@@ -1,4 +1,4 @@
-import { BasePage } from './basePage';
+import { BasePage } from './BasePage';
 import { Page } from '@playwright/test';
 import { builderLocators } from '../locators/builderLocators';
 

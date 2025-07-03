@@ -1,4 +1,4 @@
-import { BasePage } from './basePage';
+import { BasePage } from './BasePage';
 import { Page } from '@playwright/test';
 import { loginLocators } from '../locators/loginLocators';
 import * as twoFactor from '../utils/2fa';
@@ -39,8 +39,9 @@ export class LoginPage extends BasePage {
   }
 
   async clickNext() {
-	await this.click(loginLocators.nextButton);
-  }
+	const nextButton = this.page.locator(loginLocators.nextButton).first();
+	await this.click(nextButton);
+}
 
   async enter2FACode() {
 	const code = twoFactor.get_two_factor();

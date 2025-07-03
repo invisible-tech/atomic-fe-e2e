@@ -14,5 +14,6 @@ export const loginLocators = {
   twoFactorCodeInput: '[aria-label="Enter code"]',
   
   // Success indicators
-  pageHeadings: 'h1, h2, h3, h4',
+  //pageHeadings: 'h1, h2, h3, h4',
+  pageHeadings: 'h1.text-xl.font-semibold:has-text("Overview")'
 };
