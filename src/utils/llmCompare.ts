@@ -5,7 +5,7 @@ export interface LlmCompareOptions {
 }
 
 const LLM_CHECK_URL =
-  'https://script.google.com/macros/s/AKfycbyU1ev45sxhYSgNxdxSrkZvt3Su1bvbxL55xoXtZQ5OhZxsecBL56ELuNPeDaCgNyx07g/exec';
+  'https://script.google.com/macros/s/AKfycbyIzT6NhytfLgaCAa-bLWCjiuYg7FIWMS8SZcyNNb7J7iYFBUXQYTuOnPa5DEt0LV_4/exec';
 
 export async function llmCompare(
   expected: string,
